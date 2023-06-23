@@ -14,7 +14,7 @@ int main()
     ptr = array;
     ptr = ptr + 2;		// ptr points to the third element
 
-	printf("The element is %d\n", *(ptr + 1)); // to get 4th element, add 1 to ptr and dereference it
+	printf("The element is %d\n", *(ptr + 1)); // ptr is increased by 1 integer sized chuck, then dereferenced
     // The element is 19
 
     /* Pointer to an array */
