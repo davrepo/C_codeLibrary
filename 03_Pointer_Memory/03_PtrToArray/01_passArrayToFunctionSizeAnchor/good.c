@@ -1,6 +1,5 @@
 #include <stdio.h>
-
-#define SIZE 50
+#include <stdlib.h>
 
 void foo(int arr[]) {
     printf("%p\n", arr); // 000000000061FC90
@@ -22,11 +21,13 @@ int main() {
     bar(arr);
 
     // -------------- Size Anchor --------------
-    int v[SIZE];
-    for (int i=0; i<SIZE; i++) {
+    int v[10];
+    for (int i=0; i<sizeof(v)/sizeof(v[0]); i++) {
         v[i] = rand() % 100;
     }
-    printElement(v, SIZE);
+    // sizeof(v)/sizeof(v[0]) is the size anchor
+    printElement(v, sizeof(v)/sizeof(v[0]));
+    // 41, 67, 34, 0, 69, 24, 78, 58, 62, 64,
 
     return 0;
 }
