@@ -1,24 +1,11 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-int main() {
-	int a = 65284;
-	unsigned char *buffer;
+int main(){
+	int C[3][2][2] = {{{2, 5}, {7, 9}}, {{3, 4}, {6, 1}}, {{0, 8}, {11, 13}}};
 
-	buffer = (unsigned char *)malloc( sizeof(int) );
-	if( buffer==NULL ){
-		fprintf(stderr,"Unable to allocate memory\n");
-		exit(1);
-	}
-
-	memcpy(buffer, &a, sizeof(int)); 
-	
-	/* dump the buffer 1 byte at a time */
-	puts("Buffer dump:");
-	for( int x=0; x<(int)sizeof(int); x++ ) {
-		printf(" %02X", *(buffer+x)); // *(buffer+x) is the same as buffer[x]
-	}
+	printf("%d %d %d %d\n", C, *C, C[0], &C[0][0]);
+	printf("%d\n", *(C[0][0] + 1));
 
 	return(0);
 }
