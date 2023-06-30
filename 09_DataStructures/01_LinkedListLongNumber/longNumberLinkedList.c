@@ -63,6 +63,7 @@ void freeNumber(struct digit *start) {
     }
 }
 
+// NB! NB! ********************************************
 struct digit *readNumber(void) {
     char c;
     int d;
@@ -81,45 +82,4 @@ struct digit *readNumber(void) {
         scanf("%c", &c);
     }
     return(start);
-}
-
-int divisibleByThree(struct digit * start) {
-    struct digit * ptr = start;
-    int qsum = 0;
-    while (ptr!=NULL) {
-        qsum += ptr->num;
-        ptr = ptr->next;
-    }
-    if (qsum%3==0) return 1;
-    else return 0;
-}
-
-int changeThrees(struct digit * start) {
-    struct digit * ptr = start;
-    int sum = 0;
-    while (ptr!=NULL) {
-        if (ptr->num == 3) {
-            ptr->num = 9;
-            sum++;
-        }
-        ptr = ptr->next;
-    }
-    return(sum);
-}
-
-// Write your countRedun() function here
-int countRedun(struct digit * start) {
-    int redundancies = 0;
-    int counts[10] = {0}; // Initialize all counts to 0
-    struct digit * ptr = start;
-    
-    while (ptr != NULL) {
-        counts[ptr->num]++;
-        if (counts[ptr->num] > 1) {
-            redundancies++;
-        }
-        ptr = ptr->next;
-    }
-    
-    return redundancies;
 }

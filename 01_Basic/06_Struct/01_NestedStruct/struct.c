@@ -16,7 +16,7 @@ int main()
 		struct date birthday; 
 	};
     // declare a variable of type struct person
-	struct person friend;
+	struct person friend = { "Peter Almond", {1732, 2, 22} }; // direct initialization is allowed
 
     // friend.name = "George Washington" is not allowed, so we use strcpy
 	strcpy(friend.name,"George Washington");
