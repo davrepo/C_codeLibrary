@@ -1,125 +1,52 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-struct digit {
-    int num;
-    struct digit *next;
-};
-
-
-// Add a prototype for countRedun() here
-struct digit * createDigit(int);
-struct digit * append(struct digit * end, struct digit * newDigptr);
-void printNumber(struct digit *);
-void freeNumber(struct digit *);
-struct digit *readNumber(void); 
-int divisibleByThree(struct digit * start);
-int changeThrees(struct digit * start);
-int countRedun(struct digit * start);
-
-// Do not modify this main() function
-int main(void) {
-    struct digit *start;
-    start = readNumber();
-
-    printf("The number ");
-    printNumber(start);
-    printf("contains %d redundancies.\n", countRedun(start));
-
-    freeNumber(start);
-
-    return 0;
-}
-
-struct digit *createDigit(int dig) {
-    struct digit *ptr;
-    ptr = (struct digit *) malloc(sizeof(struct digit));
-    ptr->num = dig;
-    ptr->next = NULL;
-    return ptr;
-}
-
-struct digit * append(struct digit * end, struct digit * newDigptr) {
-    end->next = newDigptr;
-    return(end->next);
-}
-
-void printNumber(struct digit *start) {
-    struct digit * ptr = start;
-    while (ptr!=NULL) {
-        printf("%d", ptr->num);
-        ptr = ptr->next;
+int main() {
+    int grade;
+    
+    // Read the grade from the user
+    scanf("%d", &grade);
+    
+    // Open the file for reading
+    FILE *file = fopen("myGrades.txt", "r");
+    
+    // Find the last number in the file
+    // reading integers (grades) from the opened file one by one until it can't read any more.
+    // The fscanf function is used to read formatted data from the file. The format specified ("%d") tells fscanf to look for an integer.
+    // fscanf reads one integer at a time and stores it in the variable lastGrade. It keeps doing this in a loop as long as it can successfully read an integer.
+    // When fscanf encounters the end of the file, or some data that it can't interpret as an integer, it will return a value that is not equal to 1. At this point, the loop stops.
+    int lastGrade;
+    while (fscanf(file, "%d", &lastGrade) == 1) {
+        // Move to the next number
+    }
+    
+    // Close the file
+    fclose(file);
+    
+    // Compare the last grade with the grade from the user
+    if (lastGrade == grade) {
+        printf("Grade already recorded.\n");
+    } else {
+        // Reopen the file for appending
+        file = fopen("myGrades.txt", "a");
+        
+        // Append the new grade to the file
+        fprintf(file, " %d", grade);
+        
+        // Close the file
+        fclose(file);
+    }
+    
+    // Reopen the file for reading
+    file = fopen("myGrades.txt", "r");
+    
+    // Print the file contents
+    while (fscanf(file, "%d", &lastGrade) == 1) {
+        printf("%d ", lastGrade);
     }
     printf("\n");
-}
-
-void freeNumber(struct digit *start) {
-    struct digit * ptr = start;
-    struct digit * tmp;
-    while (ptr!=NULL) {
-        tmp = ptr->next;
-        free(ptr);
-        ptr = tmp;
-    }
-}
-
-struct digit *readNumber(void) {
-    char c;
-    int d;
-    struct digit *start, *end, *newptr;
-    start = NULL;
-    scanf("%c", &c);
-    while (c != '\n') {
-        d = c-48;
-        newptr = createDigit(d);
-        if (start == NULL) {
-            start = newptr;
-            end = start;
-        } else {
-            end = append(end, newptr);
-        }
-        scanf("%c", &c);
-    }
-    return(start);
-}
-
-int divisibleByThree(struct digit * start) {
-    struct digit * ptr = start;
-    int qsum = 0;
-    while (ptr!=NULL) {
-        qsum += ptr->num;
-        ptr = ptr->next;
-    }
-    if (qsum%3==0) return 1;
-    else return 0;
-}
-
-int changeThrees(struct digit * start) {
-    struct digit * ptr = start;
-    int sum = 0;
-    while (ptr!=NULL) {
-        if (ptr->num == 3) {
-            ptr->num = 9;
-            sum++;
-        }
-        ptr = ptr->next;
-    }
-    return(sum);
-}
-
-// Write your countRedun() function here
-int countRedun(struct digit * start) {
-    int redundancies = 0;
-    int counts[10] = {0}; // Initialize all counts to 0
-    struct digit * ptr = start;
     
-    while (ptr != NULL) {
-        counts[ptr->num]++;
-        if (counts[ptr->num] > 1) {
-            redundancies++;
-        }
-        ptr = ptr->next;
-    }
+    // Close the file
+    fclose(file);
     
-    return redundancies;
+    return 0;
 }

@@ -1,7 +1,8 @@
 #include <stdio.h>
 
 // scanf() is good for reading numbers, single characters, and strings without spaces (word)
-// not good for reading strings with spaces in them (use fgets() instead) and can be overflown
+// not good for reading strings with spaces in them (use fgets() instead) and can be overflown (b/c has no limit on how many characters it can read)
+// so use fgets() instead of scanf() for reading strings with spaces in them
 
 int main()
 {
