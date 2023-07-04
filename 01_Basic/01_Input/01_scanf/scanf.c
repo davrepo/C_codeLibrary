@@ -24,5 +24,19 @@ int main()
 	scanf("%d", ptr);
 	printf("You are %d years old\n", *ptr);
 
+    /* Example 3*/
+
+    char *str = malloc(100); // Allocate memory for the string
+    if (str == NULL) {
+        fprintf(stderr, "Failed to allocate memory\n");
+        return 1;
+    }
+    
+    scanf("%99[^\n]", str); // Read a line of text, but not more than 99 characters (leave space for null terminator)
+    getchar(); // get rid of the newline character left behind by scanf
+    printf("\n%s\n", str);
+
+    free(str); // Free the allocated memory
+
     return 0;
 }
